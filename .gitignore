@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+opc_ua_system/output/
+opc_ua_system/config/config.yaml
