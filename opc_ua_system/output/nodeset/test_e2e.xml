@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" LastModified="2026-05-06T17:33:51.894821">
+  <NamespaceUris>
+    <Uri>http://example.org/UA/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://example.org/UA/" PublicationDate="2026-05-06T17:33:51Z" Version="1.0">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.04"/>
+    </Model>
+  </Models>
+  <UAVariable NodeId="ns=2;i=5000" BrowseName="2:ExecutionMode" DisplayName="ExecutionMode" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5001" BrowseName="2:CoolantSystem" DisplayName="CoolantSystem" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5002" BrowseName="2:SpindleLoad" DisplayName="SpindleLoad" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5003" BrowseName="2:CoolantLevel" DisplayName="CoolantLevel" DataType="String" ParentNodeId="ns=2;i=5001"/>
+  <UAVariable NodeId="ns=2;i=5004" BrowseName="2:FeedRate" DisplayName="FeedRate" DataType="String" ParentNodeId=""/>
+  <UAMethod NodeId="ns=2;i=5005" BrowseName="2:LoadProgram" DisplayName="LoadProgram" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5006" BrowseName="2:ZPosition" DisplayName="ZPosition" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5007" BrowseName="2:ToolChanger" DisplayName="ToolChanger" EventNotifier="SubscribeToEvents"/>
+  <UAObject NodeId="ns=2;i=5008" BrowseName="2:CNCMachine" DisplayName="CNCMachine" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5009" BrowseName="2:ToolOffset" DisplayName="ToolOffset" DataType="String" ParentNodeId="ns=2;i=5007"/>
+  <UAMethod NodeId="ns=2;i=5010" BrowseName="2:MoveTo" DisplayName="MoveTo" ParentNodeId=""/>
+  <UAMethod NodeId="ns=2;i=5011" BrowseName="2:CycleStart" DisplayName="CycleStart" ParentNodeId="ns=2;i=5008"/>
+  <UAObject NodeId="ns=2;i=5012" BrowseName="2:Spindle" DisplayName="Spindle" EventNotifier="SubscribeToEvents"/>
+  <UAMethod NodeId="ns=2;i=5013" BrowseName="2:ChangeTool" DisplayName="ChangeTool" ParentNodeId="ns=2;i=5007"/>
+  <UAVariable NodeId="ns=2;i=5014" BrowseName="2:MachineStatus" DisplayName="MachineStatus" DataType="String" ParentNodeId="ns=2;i=5008"/>
+  <UAVariable NodeId="ns=2;i=5015" BrowseName="2:SpindleSpeed" DisplayName="SpindleSpeed" DataType="String" ParentNodeId="ns=2;i=5012"/>
+  <UAVariable NodeId="ns=2;i=5016" BrowseName="2:YPosition" DisplayName="YPosition" DataType="String" ParentNodeId=""/>
+  <UAMethod NodeId="ns=2;i=5017" BrowseName="2:StartSpindle" DisplayName="StartSpindle" ParentNodeId="ns=2;i=5012"/>
+  <UAMethod NodeId="ns=2;i=5018" BrowseName="2:StopSpindle" DisplayName="StopSpindle" ParentNodeId="ns=2;i=5012"/>
+  <UAVariable NodeId="ns=2;i=5019" BrowseName="2:ProgramName" DisplayName="ProgramName" DataType="String" ParentNodeId=""/>
+  <UAMethod NodeId="ns=2;i=5020" BrowseName="2:EmergencyStop" DisplayName="EmergencyStop" ParentNodeId="ns=2;i=5008"/>
+  <UAVariable NodeId="ns=2;i=5021" BrowseName="2:CoolantPressure" DisplayName="CoolantPressure" DataType="String" ParentNodeId="ns=2;i=5001"/>
+  <UAVariable NodeId="ns=2;i=5022" BrowseName="2:XPosition" DisplayName="XPosition" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5023" BrowseName="2:Worktable" DisplayName="Worktable" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5024" BrowseName="2:ToolNumber" DisplayName="ToolNumber" DataType="String" ParentNodeId="ns=2;i=5007"/>
+  <UAObject NodeId="ns=2;i=5025" BrowseName="2:CNCController" DisplayName="CNCController" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5026" BrowseName="2:AlarmCode" DisplayName="AlarmCode" DataType="String" ParentNodeId="ns=2;i=5008"/>
+  <UAVariable NodeId="ns=2;i=5027" BrowseName="2:SpindleOrientation" DisplayName="SpindleOrientation" DataType="String" ParentNodeId="ns=2;i=5012"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5012"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5007"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5023"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5001"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5025"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5012" TargetNodeId="ns=2;i=5015"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5012" TargetNodeId="ns=2;i=5002"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5012" TargetNodeId="ns=2;i=5027"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5012" TargetNodeId="ns=2;i=5017"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5012" TargetNodeId="ns=2;i=5018"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5007" TargetNodeId="ns=2;i=5024"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5007" TargetNodeId="ns=2;i=5009"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5007" TargetNodeId="ns=2;i=5013"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5022"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5016"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5006"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5004"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5010"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5001" TargetNodeId="ns=2;i=5003"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5001" TargetNodeId="ns=2;i=5021"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5025" TargetNodeId="ns=2;i=5019"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5025" TargetNodeId="ns=2;i=5000"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5014"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5026"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5005"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5011"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5008" TargetNodeId="ns=2;i=5020"/>
+</UANodeSet>

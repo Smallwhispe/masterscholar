@@ -1,0 +1,44 @@
+{
+  "device_name": "CNC Machine",
+  "objects": [
+    {
+      "name": "Spindle",
+      "variables": [
+        {
+          "name": "SpindleSpeed",
+          "value": "8000",
+          "data_type": "UInt32"
+        },
+        {
+          "name": "SpindleLoad",
+          "value": "45.2",
+          "data_type": "Double"
+        }
+      ],
+      "methods": [
+        {
+          "name": "StartSpindle",
+          "params": []
+        }
+      ]
+    },
+    {
+      "name": "ToolChanger",
+      "variables": [
+        {
+          "name": "ToolNumber",
+          "value": "3",
+          "data_type": "UInt16"
+        }
+      ],
+      "methods": [
+        {
+          "name": "ChangeTool",
+          "params": [
+            "tool_id"
+          ]
+        }
+      ]
+    }
+  ]
+}

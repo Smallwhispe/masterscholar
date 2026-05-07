@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" LastModified="2026-05-06T17:33:51.913824">
+  <NamespaceUris>
+    <Uri>http://example.org/UA/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://example.org/UA/" PublicationDate="2026-05-06T17:33:51Z" Version="1.0">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.04"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=2;i=5000" BrowseName="2:Child" DisplayName="Child" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5001" BrowseName="2:Value" DisplayName="Value" DataType="String" ParentNodeId="ns=2;i=5000"/>
+  <UAObject NodeId="ns=2;i=5002" BrowseName="2:Root" DisplayName="Root" EventNotifier="SubscribeToEvents"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5002" TargetNodeId="ns=2;i=5000"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5000" TargetNodeId="ns=2;i=5001"/>
+</UANodeSet>

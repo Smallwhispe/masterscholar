@@ -1,0 +1,154 @@
+{
+  "frame_id": 1,
+  "timestamp": "2025-01-15T10:30:00",
+  "server_url": "opc.tcp://192.168.1.100:4840",
+  "node_count": 8,
+  "nodes": {
+    "ns=2;i=5001": {
+      "node_id": "ns=2;i=5001",
+      "display_name": "CNCMachine_01",
+      "browse_name": "CNCMachine_01",
+      "node_class": "Object",
+      "data_type": "",
+      "parent_node_id": null,
+      "children": [
+        "ns=2;i=5002",
+        "ns=2;i=5003",
+        "ns=2;i=5004"
+      ],
+      "timestamp": "2025-01-15T10:30:00"
+    },
+    "ns=2;i=5002": {
+      "node_id": "ns=2;i=5002",
+      "display_name": "Spindle",
+      "browse_name": "Spindle",
+      "node_class": "Object",
+      "parent_node_id": "ns=2;i=5001",
+      "children": [
+        "ns=2;i=5005",
+        "ns=2;i=5006"
+      ]
+    },
+    "ns=2;i=5003": {
+      "node_id": "ns=2;i=5003",
+      "display_name": "ToolChanger",
+      "browse_name": "ToolChanger",
+      "node_class": "Object",
+      "parent_node_id": "ns=2;i=5001",
+      "children": [
+        "ns=2;i=5007"
+      ]
+    },
+    "ns=2;i=5004": {
+      "node_id": "ns=2;i=5004",
+      "display_name": "Worktable",
+      "browse_name": "Worktable",
+      "node_class": "Object",
+      "parent_node_id": "ns=2;i=5001",
+      "children": [
+        "ns=2;i=5008"
+      ]
+    },
+    "ns=2;i=5005": {
+      "node_id": "ns=2;i=5005",
+      "display_name": "SpindleSpeed",
+      "browse_name": "SpindleSpeed",
+      "node_class": "Variable",
+      "value": "8000",
+      "data_type": "UInt32",
+      "parent_node_id": "ns=2;i=5002"
+    },
+    "ns=2;i=5006": {
+      "node_id": "ns=2;i=5006",
+      "display_name": "SpindleLoad",
+      "browse_name": "SpindleLoad",
+      "node_class": "Variable",
+      "value": "45.2",
+      "data_type": "Double",
+      "parent_node_id": "ns=2;i=5002"
+    },
+    "ns=2;i=5007": {
+      "node_id": "ns=2;i=5007",
+      "display_name": "ToolNumber",
+      "browse_name": "ToolNumber",
+      "node_class": "Variable",
+      "value": "3",
+      "data_type": "UInt16",
+      "parent_node_id": "ns=2;i=5003"
+    },
+    "ns=2;i=5008": {
+      "node_id": "ns=2;i=5008",
+      "display_name": "FeedRate",
+      "browse_name": "FeedRate",
+      "node_class": "Variable",
+      "value": "150.0",
+      "data_type": "Double",
+      "parent_node_id": "ns=2;i=5004"
+    }
+  },
+  "device_metadata": [
+    {
+      "field_name": "Spindle",
+      "browse_name": "Spindle",
+      "value": "",
+      "data_type": "",
+      "node_class": "Object",
+      "node_id": "ns=2;i=5002",
+      "parent_node_id": "ns=2;i=5001"
+    },
+    {
+      "field_name": "ToolChanger",
+      "browse_name": "ToolChanger",
+      "value": "",
+      "data_type": "",
+      "node_class": "Object",
+      "node_id": "ns=2;i=5003",
+      "parent_node_id": "ns=2;i=5001"
+    },
+    {
+      "field_name": "Worktable",
+      "browse_name": "Worktable",
+      "value": "",
+      "data_type": "",
+      "node_class": "Object",
+      "node_id": "ns=2;i=5004",
+      "parent_node_id": "ns=2;i=5001"
+    },
+    {
+      "field_name": "SpindleSpeed",
+      "browse_name": "SpindleSpeed",
+      "value": "8000",
+      "data_type": "UInt32",
+      "node_class": "Variable",
+      "node_id": "ns=2;i=5005",
+      "parent_node_id": "ns=2;i=5002"
+    },
+    {
+      "field_name": "SpindleLoad",
+      "browse_name": "SpindleLoad",
+      "value": "45.2",
+      "data_type": "Double",
+      "node_class": "Variable",
+      "node_id": "ns=2;i=5006",
+      "parent_node_id": "ns=2;i=5002"
+    },
+    {
+      "field_name": "ToolNumber",
+      "browse_name": "ToolNumber",
+      "value": "3",
+      "data_type": "UInt16",
+      "node_class": "Variable",
+      "node_id": "ns=2;i=5007",
+      "parent_node_id": "ns=2;i=5003"
+    },
+    {
+      "field_name": "FeedRate",
+      "browse_name": "FeedRate",
+      "value": "150.0",
+      "data_type": "Double",
+      "node_class": "Variable",
+      "node_id": "ns=2;i=5008",
+      "parent_node_id": "ns=2;i=5004"
+    }
+  ]
+}

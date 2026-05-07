@@ -1,0 +1,41 @@
+{
+  "text": "CNCMachine_01 with Spindle running at 8000 RPM, ToolChanger holding 3 tools",
+  "annotations": [
+    {
+      "entity": "CNCMachine_01",
+      "type": "DeviceName",
+      "span": [
+        0,
+        16
+      ],
+      "attributes": [],
+      "operations": []
+    },
+    {
+      "entity": "Spindle",
+      "type": "DeviceName",
+      "span": [
+        21,
+        28
+      ],
+      "attributes": [
+        {
+          "name": "SpindleSpeed",
+          "value": "8000",
+          "unit": "RPM"
+        }
+      ],
+      "operations": []
+    },
+    {
+      "entity": "ToolChanger",
+      "type": "DeviceName",
+      "span": [
+        41,
+        52
+      ],
+      "attributes": [],
+      "operations": []
+    }
+  ]
+}

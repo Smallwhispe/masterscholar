@@ -1,0 +1,89 @@
+# OPC UA System Configuration
+opc_ua:
+  server_url: "opc.tcp://localhost:4840"
+  namespace_uri: "http://example.org/UA/"
+  polling_interval_ms: 1000
+  timeout_ms: 5000
+  max_retries: 3
+
+device_identification:
+  model_type: "char_textcnn"     # char_textcnn
+  sequence_length: 128
+  num_classes: 6                  # IR, CNC, SOM, SCM, PM, PW
+  char_embedding_dim: 64
+  num_filters: 128
+  kernel_sizes: [2, 3, 4, 5]
+  dropout_rate: 0.5
+  learning_rate: 0.001
+  batch_size: 32
+  max_epochs: 100
+  early_stop_patience: 10
+  model_save_path: "data/training/device_classification/"
+  char_vocab_path: "data/training/device_classification/char_vocab.json"
+  label_map_path: "data/training/device_classification/label_map.json"
+
+ner:
+  model_type: "bilstm_crf"
+  char_embedding_dim: 64
+  hidden_dim: 128
+  dropout_rate: 0.5
+  learning_rate: 0.001
+  batch_size: 16
+  max_epochs: 50
+  model_save_path: "data/training/ner/"
+  entity_types: ["DeviceName", "Feature", "Attribute", "Operation"]
+
+knowledge_graph:
+  db_type: "neo4j"               # neo4j | rdflib
+  neo4j_uri: "bolt://localhost:7687"
+  neo4j_user: "neo4j"
+  neo4j_password: "password"
+  imkg_types:
+    - IR     # Industrial Robot
+    - CNC    # CNC Machine
+    - SOM    # Sorting Machine
+    - SCM    # Scribing Machine
+    - PM     # Pick-and-Place Machine
+    - PW     # Press Welder
+  relation_types:
+    - hasComponent
+    - hasProperty
+    - hasOperation
+    - hasParameter
+    - subtypeOf
+    - connectedTo
+    - controlledBy
+
+knowledge_completion:
+  cbow:
+    char_embedding_dim: 64
+    window_size: 3
+    learning_rate: 0.001
+    batch_size: 64
+    max_epochs: 100
+    model_save_path: "data/training/cbow/"
+  complex:
+    embedding_dim: 256
+    learning_rate: 0.001
+    batch_size: 128
+    max_epochs: 200
+    negative_samples: 10
+    regularization_lambda: 0.01
+    model_save_path: "data/training/complex/"
+  space_transform:
+    transform_type: "mlp"         # linear | affine | mlp
+    hidden_dim: 128
+    learning_rate: 0.0005
+    batch_size: 64
+    max_epochs: 100
+    model_save_path: "data/training/complex/transform/"
+
+model_generation:
+  owl_namespace: "http://example.org/ua/ontology#"
+  nodeset_xml_template: "config/nodeset_template.xml"
+  output_dir: "output/nodeset/"
+
+logging:
+  level: "INFO"
+  log_file: "logs/system.log"
+  save_interval_epochs: 10
