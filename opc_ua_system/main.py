@@ -18,6 +18,7 @@ from model_generation import (
     OWLToNodesetXML,
     FormatTransformationAgent,
     AddressSpaceBuilder,
+    LowcodeGenerator,
 )
 from data import TrainingDataGenerator, SampleData
 
@@ -61,11 +62,12 @@ class Pipeline:
     4. 知识补全:     CBOW + ComplEx → 未知实体补全
     5. 模型生成:     IMKG → OWL → Nodeset XML
     6. 地址空间:     加载节点集合构建OPC UA地址空间
+    7. 低代码生成:   KG语义 + 帧实时值 → LowCodeEngine ProjectSchema JSON
 
     图示流程:
-    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-    │ 设备数据帧 │ → │  JSON转换  │ → │ 设备类型识别│ → │未知实体补全│ → │信息模型子图│ → │ OPC UA XML│ → 地址空间构建
-    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘
+    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────────┐
+    │ 设备数据帧 │ → │  JSON转换  │ → │ 设备类型识别│ → │未知实体补全│ → │信息模型子图│ → │ OPC UA XML│ → │低代码Schema │
+    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────────┘
     """
 
     def __init__(self, config_path: str = None):
@@ -75,6 +77,7 @@ class Pipeline:
         self.owl_to_nodeset = OWLToNodesetXML()
         self.fta = FormatTransformationAgent()
         self.address_builder = AddressSpaceBuilder()
+        self.lowcode_gen = LowcodeGenerator()
 
         self.char_preprocessor: Optional[CharPreprocessor] = None
         self.textcnn: Optional[CharTextCNN] = None
@@ -218,7 +221,9 @@ class Pipeline:
         logger.info("Phase 2 完成: 所有模型已构建")
         return self._results["phase_2"]
 
-    def phase_3_query_by_device_type(self, frame: Dict) -> Dict:
+    def phase_3_query_by_device_type(
+        self, frame: Dict, generate_lowcode: bool = True
+    ) -> Dict:
         """第三阶段: 设备数据帧 → 设备类型识别 → IMKG构建 → 知识补全 → 模型生成
 
         核心流水线:
@@ -228,6 +233,7 @@ class Pipeline:
         4. 信息模型子图抽取
         5. IMKG → OWL → Nodeset XML
         6. 地址空间构建
+        7. 低代码Schema生成: KG语义骨架 + 帧实时值 → LowCodeEngine ProjectSchema JSON
         """
         logger.info("=" * 50)
         logger.info("Phase 3: 设备建模流水线")
@@ -301,12 +307,25 @@ class Pipeline:
             str(nodeset_path)
         )
 
+        lowcode_path = ""
+        if generate_lowcode:
+            logger.info("  → 生成低代码Schema (KG语义 + 帧实时值融合)")
+            lowcode_schema = self.lowcode_gen.convert(
+                kg_store=self.kg_builder.store,
+                frame=frame,
+                device_type=device_type,
+                device_name=id_result.get("device_name", ""),
+            )
+            lowcode_path = Path("output/lowcode") / f"{device_type}_page.schema.json"
+            self.lowcode_gen.save(lowcode_schema, str(lowcode_path))
+
         result.update({
             "kg_entity_count": self.kg_builder.store.entity_count,
             "kg_triple_count": self.kg_builder.store.triple_count,
             "completed_triples": len(completed_triples),
             "owl_path": str(owl_path),
             "nodeset_path": str(nodeset_path),
+            "lowcode_schema_path": "" if lowcode_path == "" else str(lowcode_path),
             "address_space": {
                 "objects": len(address_space.get("objects", {})),
                 "variables": len(address_space.get("variables", {})),
@@ -323,13 +342,14 @@ class Pipeline:
         return result
 
     def run_full_pipeline(
-        self, frame: Dict = None, device: str = "cpu"
+        self, frame: Dict = None, device: str = "cpu", generate_lowcode: bool = True
     ) -> Dict[str, Any]:
         """运行完整流水线
 
         Args:
             frame: OPC UA数据帧 (如为None则使用示例数据)
             device: 运行设备 [cpu|cuda]
+            generate_lowcode: 是否生成低代码Schema (默认True)
         Returns:
             流水线执行结果
         """
@@ -344,7 +364,9 @@ class Pipeline:
 
         self.phase_1_init_training_data()
         self.phase_2_build_models(device=device)
-        result = self.phase_3_query_by_device_type(frame)
+        result = self.phase_3_query_by_device_type(
+            frame, generate_lowcode=generate_lowcode
+        )
 
         logger.info("=" * 60)
         logger.info("流水线执行完毕!")
@@ -352,6 +374,8 @@ class Pipeline:
         logger.info(f"KG实体数: {result.get('kg_entity_count', 0)}")
         logger.info(f"KG三元组数: {result.get('kg_triple_count', 0)}")
         logger.info(f"补全三元组: {result.get('completed_triples', 0)}")
+        if result.get("lowcode_schema_path"):
+            logger.info(f"低代码Schema: {result.get('lowcode_schema_path')}")
         logger.info("=" * 60)
 
         return {
@@ -407,6 +431,11 @@ def main():
         action="store_true",
         help="仅生成训练数据",
     )
+    parser.add_argument(
+        "--no-lowcode",
+        action="store_true",
+        help="不生成低代码Schema (默认会生成)",
+    )
 
     args = parser.parse_args()
 
@@ -426,7 +455,11 @@ def main():
     else:
         frame = None
 
-    results = pipeline.run_full_pipeline(frame=frame, device=args.device)
+    results = pipeline.run_full_pipeline(
+        frame=frame,
+        device=args.device,
+        generate_lowcode=not args.no_lowcode,
+    )
     pipeline.export_results(args.export)
 
     return results
