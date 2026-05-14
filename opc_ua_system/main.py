@@ -20,6 +20,7 @@ from model_generation import (
     AddressSpaceBuilder,
     LowcodeGenerator,
 )
+from validation import TrustVerifier
 from data import TrainingDataGenerator, SampleData
 
 logger = logging.getLogger(__name__)
@@ -78,6 +79,7 @@ class Pipeline:
         self.fta = FormatTransformationAgent()
         self.address_builder = AddressSpaceBuilder()
         self.lowcode_gen = LowcodeGenerator()
+        self.verifier = TrustVerifier()
 
         self.char_preprocessor: Optional[CharPreprocessor] = None
         self.textcnn: Optional[CharTextCNN] = None
@@ -319,6 +321,22 @@ class Pipeline:
             lowcode_path = Path("output/lowcode") / f"{device_type}_page.schema.json"
             self.lowcode_gen.save(lowcode_schema, str(lowcode_path))
 
+            logger.info("  → 可信验证: 六层验证框架")
+            verify_report = self.verifier.verify_all(
+                schema=lowcode_schema,
+                kg_store=self.kg_builder.store,
+                frame=frame,
+            )
+            verify_path = Path("output/verify") / f"{device_type}_verification_report.json"
+            self.verifier.save_report(verify_report, str(verify_path))
+            result["verification"] = {
+                "overall_score": verify_report.overall_score,
+                "all_passed": verify_report.all_passed,
+                "layer_scores": verify_report.layer_scores,
+                "total_issues": verify_report.total_issues,
+                "report_path": str(verify_path),
+            }
+
         result.update({
             "kg_entity_count": self.kg_builder.store.entity_count,
             "kg_triple_count": self.kg_builder.store.triple_count,
@@ -376,6 +394,14 @@ class Pipeline:
         logger.info(f"补全三元组: {result.get('completed_triples', 0)}")
         if result.get("lowcode_schema_path"):
             logger.info(f"低代码Schema: {result.get('lowcode_schema_path')}")
+        if result.get("verification"):
+            v = result["verification"]
+            logger.info(
+                f"可信验证: 综合评分 {v['overall_score']:.2%}, "
+                f"通过 {'全' if v['all_passed'] else '未全'}部, "
+                f"问题 {v['total_issues']} 个"
+            )
+            logger.info(f"验证报告: {v.get('report_path', '')}")
         logger.info("=" * 60)
 
         return {
