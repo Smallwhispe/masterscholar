@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "total_layers": 6,
+    "layers_passed": 6
+  },
+  "overall_score": 1.0,
+  "all_passed": true,
+  "total_checks": 25,
+  "total_issues": 0,
+  "layer_scores": {
+    "溯源追溯": 1.0,
+    "Schema协议合规": 1.0,
+    "结构完整性": 1.0,
+    "语义保真度": 1.0,
+    "数据一致性": 1.0,
+    "运行时验证": 1.0
+  },
+  "layers": [
+    {
+      "layer": "溯源追溯",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 1,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "可溯源节点覆盖率",
+          "passed": true,
+          "value": "20/20 (100%)",
+          "threshold": ">= 90%"
+        }
+      ],
+      "issues": [],
+      "details": {
+        "traceable_nodes": 20,
+        "phantom_nodes": 0,
+        "phantom_list": [],
+        "kg_entities_available": 20,
+        "frame_variables_available": 4,
+        "source_breakdown": {
+          "kg_only": 20,
+          "frame_only": 0,
+          "both": 0
+        }
+      }
+    },
+    {
+      "layer": "Schema协议合规",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 6,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "顶层必填字段完整",
+          "passed": true,
+          "value": "完整"
+        },
+        {
+          "name": "协议版本号有效",
+          "passed": true,
+          "value": "1.0.0"
+        },
+        {
+          "name": "componentsMap 覆盖所有使用的组件",
+          "passed": true,
+          "value": "全部覆盖"
+        },
+        {
+          "name": "组件名大写字母开头",
+          "passed": true,
+          "value": "合规"
+        },
+        {
+          "name": "JSExpression/JSFunction 格式正确",
+          "passed": true,
+          "value": "全部正确"
+        },
+        {
+          "name": "根节点类型合法",
+          "passed": true,
+          "value": ""
+        }
+      ],
+      "issues": [],
+      "details": {
+        "components_in_map": 7,
+        "components_in_tree": 5,
+        "missing_in_map": [],
+        "bad_names": []
+      }
+    },
+    {
+      "layer": "结构完整性",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 6,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "根节点为 Page 容器",
+          "passed": true,
+          "value": "Page"
+        },
+        {
+          "name": "所有节点 ID 唯一",
+          "passed": true,
+          "value": "共 21 个唯一ID"
+        },
+        {
+          "name": "无孤立 Variable 节点",
+          "passed": true,
+          "value": "无"
+        },
+        {
+          "name": "无空 Card 容器",
+          "passed": true,
+          "value": "无"
+        },
+        {
+          "name": "嵌套深度不超过 20",
+          "passed": true,
+          "value": "合规"
+        },
+        {
+          "name": "children 字段均为 list",
+          "passed": true,
+          "value": "合规"
+        }
+      ],
+      "issues": [],
+      "details": {
+        "total_nodes": 21,
+        "max_depth": 4,
+        "orphan_variables": 0,
+        "empty_cards": 0,
+        "duplicate_ids": 0
+      }
+    },
+    {
+      "layer": "语义保真度",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 4,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "hasComponent → children 映射覆盖率",
+          "passed": true,
+          "value": "4/4 (100%)"
+        },
+        {
+          "name": "hasProperty → 控件映射覆盖率",
+          "passed": true,
+          "value": "10/10 (100%)"
+        },
+        {
+          "name": "hasOperation → Button 映射覆盖率",
+          "passed": true,
+          "value": "5/5 (100%)"
+        },
+        {
+          "name": "总体语义覆盖率",
+          "passed": true,
+          "value": "19/19 (100%)"
+        }
+      ],
+      "issues": [],
+      "details": {
+        "kg_total_triples": 19,
+        "kg_has_component": 4,
+        "kg_has_property": 10,
+        "kg_has_operation": 5,
+        "kg_subtype_of": 0,
+        "overall_coverage": 1.0,
+        "coverage_breakdown": {
+          "hasComponent": 1.0,
+          "hasProperty": 1.0,
+          "hasOperation": 1.0
+        },
+        "unmapped_count": 0,
+        "phantom_count": 0,
+        "known_gaps": []
+      }
+    },
+    {
+      "layer": "数据一致性",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 4,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "Variable 值与 Frame 一致",
+          "passed": true,
+          "value": "全部一致"
+        },
+        {
+          "name": "data_type → 组件类型映射正确",
+          "passed": true,
+          "value": "全部正确"
+        },
+        {
+          "name": "Frame 元信息正确注入",
+          "passed": true,
+          "value": "server_url: opc.tcp://192.168.1.100:4840..."
+        },
+        {
+          "name": "FRAME_ID 正确注入",
+          "passed": true,
+          "value": "1"
+        }
+      ],
+      "issues": [],
+      "details": {
+        "frame_variables_total": 4,
+        "schema_variables_found": 10,
+        "matched_variables": 1,
+        "coverage": 0.1,
+        "value_mismatches": 0,
+        "type_mismatches": 0,
+        "mismatched_details": {
+          "value": [],
+          "type": []
+        }
+      }
+    },
+    {
+      "layer": "运行时验证",
+      "passed": true,
+      "score": 1.0,
+      "check_count": 4,
+      "issue_count": 0,
+      "checks": [
+        {
+          "name": "所有组件名在 componentsMap 中有定义",
+          "passed": true,
+          "value": "全部可解析"
+        },
+        {
+          "name": "Button 事件引用的方法在 Page.methods 中存在",
+          "passed": true,
+          "value": "全部一致"
+        },
+        {
+          "name": "props 中 JSExpression/JSFunction 格式有效",
+          "passed": true,
+          "value": "全部有效"
+        },
+        {
+          "name": "常用内置组件已注册",
+          "passed": true,
+          "value": "全部注册"
+        }
+      ],
+      "issues": [],
+      "details": {
+        "registered_components": 7,
+        "unresolved_components": 0,
+        "dangling_method_refs": 0
+      }
+    }
+  ]
+}

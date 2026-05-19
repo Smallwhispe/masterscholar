@@ -17,8 +17,8 @@ from model_generation.owl_to_nodeset import OWLToNodesetXML
 from model_generation.format_agent import FormatTransformationAgent
 from model_generation.address_space import AddressSpaceBuilder
 
-from data.training_generator import TrainingDataGenerator
-from data.sample_generator import SampleData
+from data_generation.training_generator import TrainingDataGenerator
+from data_generation.sample_generator import SampleData
 
 from eval.metrics import compute_ranking_metrics
 from eval.evaluator import PipelineEvaluator

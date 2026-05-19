@@ -1,0 +1,10 @@
+{
+  "relation_to_idx": {
+    "controlledBy": 0,
+    "hasComponent": 1,
+    "hasOperation": 2,
+    "hasProperty": 3,
+    "subtypeOf": 4
+  },
+  "num_relations": 5
+}

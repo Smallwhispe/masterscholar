@@ -1,0 +1,446 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "componentName": "Page",
+      "package": "@alilc/lowcode-materials",
+      "version": "1.0.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Card",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "NumberPicker",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Input",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Switch",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Button",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Typography",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "page_CNC",
+      "fileName": "CNC_Machine",
+      "props": {
+        "title": "CNC Machine",
+        "ref": "page"
+      },
+      "css": "body { font-family: sans-serif; } .device-card { margin: 8px 0; }",
+      "state": {},
+      "dataSource": {
+        "list": [
+          {
+            "id": "deviceData",
+            "isInit": true,
+            "type": "fetch",
+            "options": {
+              "uri": "/api/opcua/CNC/data",
+              "method": "GET",
+              "params": {},
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {}
+            }
+          }
+        ]
+      },
+      "lifeCycles": {
+        "componentDidMount": {
+          "type": "JSFunction",
+          "value": "function componentDidMount() {\n  console.log('CNC Machine 监控页面已加载');\n}"
+        }
+      },
+      "methods": {
+        "StartSpindle": {
+          "type": "JSFunction",
+          "value": "function StartSpindle(params) {\n  console.log('执行操作: StartSpindle');\n}"
+        },
+        "StopSpindle": {
+          "type": "JSFunction",
+          "value": "function StopSpindle(params) {\n  console.log('执行操作: StopSpindle');\n}"
+        },
+        "ChangeTool": {
+          "type": "JSFunction",
+          "value": "function ChangeTool(params) {\n  console.log('执行操作: ChangeTool');\n}"
+        },
+        "MoveTo": {
+          "type": "JSFunction",
+          "value": "function MoveTo(params) {\n  console.log('执行操作: MoveTo');\n}"
+        },
+        "LoadProgram": {
+          "type": "JSFunction",
+          "value": "function LoadProgram(params) {\n  console.log('执行操作: LoadProgram');\n}"
+        },
+        "CycleStart": {
+          "type": "JSFunction",
+          "value": "function CycleStart(params) {\n  console.log('执行操作: CycleStart');\n}"
+        },
+        "EmergencyStop": {
+          "type": "JSFunction",
+          "value": "function EmergencyStop(params) {\n  console.log('执行操作: EmergencyStop');\n}"
+        }
+      },
+      "children": [
+        {
+          "componentName": "Card",
+          "id": "node_CNCMachine",
+          "props": {
+            "title": "CNCMachine",
+            "showHeadDivider": true
+          },
+          "hidden": false,
+          "condition": true,
+          "children": [
+            {
+              "componentName": "Card",
+              "id": "node_CNCMachine_Spindle",
+              "props": {
+                "title": "Spindle",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_CNCMachine_Spindle_prop_SpindleSpeed",
+                  "props": {
+                    "label": "SpindleSpeed",
+                    "disabled": true,
+                    "value": 8000,
+                    "_opcua_data_type": "UInt32",
+                    "_opcua_node_id": "ns=2;i=5005"
+                  }
+                },
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_CNCMachine_Spindle_prop_SpindleLoad",
+                  "props": {
+                    "label": "SpindleLoad",
+                    "disabled": true,
+                    "value": 45.2,
+                    "_opcua_data_type": "Double",
+                    "_opcua_node_id": "ns=2;i=5006"
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_Spindle_prop_SpindleOrientation",
+                  "props": {
+                    "label": "SpindleOrientation",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_CNCMachine_Spindle_method_StartSpindle",
+                  "props": {
+                    "type": "primary",
+                    "children": "StartSpindle",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.StartSpindle"
+                    }
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_CNCMachine_Spindle_method_StopSpindle",
+                  "props": {
+                    "type": "primary",
+                    "children": "StopSpindle",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.StopSpindle"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_CNCMachine_ToolChanger",
+              "props": {
+                "title": "ToolChanger",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_CNCMachine_ToolChanger_prop_ToolNumber",
+                  "props": {
+                    "label": "ToolNumber",
+                    "disabled": true,
+                    "value": 3,
+                    "_opcua_data_type": "UInt16",
+                    "_opcua_node_id": "ns=2;i=5007"
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_ToolChanger_prop_ToolOffset",
+                  "props": {
+                    "label": "ToolOffset",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_CNCMachine_ToolChanger_method_ChangeTool",
+                  "props": {
+                    "type": "primary",
+                    "children": "ChangeTool",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.ChangeTool"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_CNCMachine_Worktable",
+              "props": {
+                "title": "Worktable",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_Worktable_prop_XPosition",
+                  "props": {
+                    "label": "XPosition",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_Worktable_prop_YPosition",
+                  "props": {
+                    "label": "YPosition",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_Worktable_prop_ZPosition",
+                  "props": {
+                    "label": "ZPosition",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_CNCMachine_Worktable_prop_FeedRate",
+                  "props": {
+                    "label": "FeedRate",
+                    "disabled": true,
+                    "value": 150.0,
+                    "_opcua_data_type": "Double",
+                    "_opcua_node_id": "ns=2;i=5008"
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_CNCMachine_Worktable_method_MoveTo",
+                  "props": {
+                    "type": "primary",
+                    "children": "MoveTo",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.MoveTo"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_CNCMachine_CoolantSystem",
+              "props": {
+                "title": "CoolantSystem",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_CoolantSystem_prop_CoolantLevel",
+                  "props": {
+                    "label": "CoolantLevel",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_CoolantSystem_prop_CoolantPressure",
+                  "props": {
+                    "label": "CoolantPressure",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_CNCMachine_CNCController",
+              "props": {
+                "title": "CNCController",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_CNCController_prop_ProgramName",
+                  "props": {
+                    "label": "ProgramName",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_CNCMachine_CNCController_prop_ExecutionMode",
+                  "props": {
+                    "label": "ExecutionMode",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Input",
+              "id": "node_CNCMachine_prop_MachineStatus",
+              "props": {
+                "label": "MachineStatus",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Input",
+              "id": "node_CNCMachine_prop_AlarmCode",
+              "props": {
+                "label": "AlarmCode",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_CNCMachine_method_LoadProgram",
+              "props": {
+                "type": "primary",
+                "children": "LoadProgram",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.LoadProgram"
+                }
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_CNCMachine_method_CycleStart",
+              "props": {
+                "type": "primary",
+                "children": "CycleStart",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.CycleStart"
+                }
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_CNCMachine_method_EmergencyStop",
+              "props": {
+                "type": "primary",
+                "children": "EmergencyStop",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.EmergencyStop"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "utils": [],
+  "constants": {
+    "DEVICE_TYPE": "CNC",
+    "SERVER_URL": "opc.tcp://192.168.1.100:4840",
+    "FRAME_ID": 1
+  },
+  "css": "body { font-size: 14px; margin: 0; padding: 16px; }\n.device-card { margin-bottom: 12px; }\n.var-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; }\n.var-label { font-weight: 500; min-width: 120px; }",
+  "config": {
+    "sdkVersion": "1.0.18",
+    "historyMode": "hash",
+    "targetRootID": "root",
+    "theme": {
+      "primary": "#1890ff"
+    }
+  },
+  "meta": {
+    "name": "CNC Machine 监控页面",
+    "description": "CNC Machine 低代码页面由 KG 语义骨架 + OPC UA 帧运行时数据融合生成",
+    "creator": "lowcode_generator",
+    "source": "merged",
+    "gmt_create": "2026-05-19T12:26:53.855642",
+    "source_frame_id": 1,
+    "server_url": "opc.tcp://192.168.1.100:4840"
+  },
+  "i18n": {},
+  "router": {
+    "baseUrl": "/",
+    "routes": [
+      {
+        "path": "cnc",
+        "page": "page_CNC"
+      }
+    ]
+  },
+  "dataSource": {
+    "list": []
+  },
+  "pages": [
+    {
+      "id": "page_CNC",
+      "treeId": "page_CNC"
+    }
+  ]
+}

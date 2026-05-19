@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:ua="http://example.org/ua/ontology#"
+         xml:base="http://example.org/ua/ontology">
+    
+    <owl:Ontology rdf:about="">
+        <rdfs:label>OPC UA Device Ontology - SOM</rdfs:label>
+        <rdfs:comment>Automatically generated from IMKG for SOM device type</rdfs:comment>
+    </owl:Ontology>
+    
+        <owl:Class rdf:about="#SortingMachine">
+        <rdfs:label>SortingMachine</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Feeder">
+        <rdfs:label>Feeder</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Conveyor">
+        <rdfs:label>Conveyor</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#VisionSystem">
+        <rdfs:label>VisionSystem</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#SortingActuator">
+        <rdfs:label>SortingActuator</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#FeedRate">
+        <rdfs:label>FeedRate</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#FeederStatus">
+        <rdfs:label>FeederStatus</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#BeltSpeed">
+        <rdfs:label>BeltSpeed</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#BeltDirection">
+        <rdfs:label>BeltDirection</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#StartBelt">
+        <rdfs:label>StartBelt</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#StopBelt">
+        <rdfs:label>StopBelt</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#RecognitionRate">
+        <rdfs:label>RecognitionRate</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#CameraResolution">
+        <rdfs:label>CameraResolution</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#CaptureImage">
+        <rdfs:label>CaptureImage</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#SortCount">
+        <rdfs:label>SortCount</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#SortCategory">
+        <rdfs:label>SortCategory</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Throughput">
+        <rdfs:label>Throughput</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#ErrorCount">
+        <rdfs:label>ErrorCount</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#StartSorting">
+        <rdfs:label>StartSorting</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#PauseSorting">
+        <rdfs:label>PauseSorting</rdfs:label>
+    </owl:Class>
+        <owl:ObjectProperty rdf:about="#hasComponent">
+        <rdfs:label>hasComponent</rdfs:label>
+        <rdfs:domain rdf:resource="#SortingMachine"/>
+        <rdfs:range rdf:resource="#SortingActuator"/>
+        <rdfs:range rdf:resource="#VisionSystem"/>
+        <rdfs:range rdf:resource="#Conveyor"/>
+        <rdfs:range rdf:resource="#Feeder"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#hasOperation">
+        <rdfs:label>hasOperation</rdfs:label>
+        <rdfs:domain rdf:resource="#SortingMachine"/>
+        <rdfs:domain rdf:resource="#VisionSystem"/>
+        <rdfs:domain rdf:resource="#Conveyor"/>
+        <rdfs:range rdf:resource="#CaptureImage"/>
+        <rdfs:range rdf:resource="#StopBelt"/>
+        <rdfs:range rdf:resource="#StartBelt"/>
+        <rdfs:range rdf:resource="#StartSorting"/>
+        <rdfs:range rdf:resource="#PauseSorting"/>
+    </owl:ObjectProperty>
+        <owl:DatatypeProperty rdf:about="#hasProperty">
+        <rdfs:label>hasProperty</rdfs:label>
+        <rdfs:domain rdf:resource="#SortingActuator"/>
+        <rdfs:domain rdf:resource="#Feeder"/>
+        <rdfs:domain rdf:resource="#SortingMachine"/>
+        <rdfs:domain rdf:resource="#Conveyor"/>
+        <rdfs:domain rdf:resource="#VisionSystem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+        <!-- No subclass relationships -->
+        <owl:NamedIndividual rdf:about="#FeederStatus">
+        <rdf:type rdf:resource="#FeederStatus"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#StopBelt">
+        <rdf:type rdf:resource="#StopBelt"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Throughput">
+        <rdf:type rdf:resource="#Throughput"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#PauseSorting">
+        <rdf:type rdf:resource="#PauseSorting"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#SortingMachine">
+        <rdf:type rdf:resource="#SortingMachine"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#SortCount">
+        <rdf:type rdf:resource="#SortCount"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#FeedRate">
+        <rdf:type rdf:resource="#FeedRate"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#CaptureImage">
+        <rdf:type rdf:resource="#CaptureImage"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#SortingActuator">
+        <rdf:type rdf:resource="#SortingActuator"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#BeltDirection">
+        <rdf:type rdf:resource="#BeltDirection"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Feeder">
+        <rdf:type rdf:resource="#Feeder"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#CameraResolution">
+        <rdf:type rdf:resource="#CameraResolution"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#BeltSpeed">
+        <rdf:type rdf:resource="#BeltSpeed"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#StartBelt">
+        <rdf:type rdf:resource="#StartBelt"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Conveyor">
+        <rdf:type rdf:resource="#Conveyor"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#VisionSystem">
+        <rdf:type rdf:resource="#VisionSystem"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#RecognitionRate">
+        <rdf:type rdf:resource="#RecognitionRate"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#ErrorCount">
+        <rdf:type rdf:resource="#ErrorCount"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#SortCategory">
+        <rdf:type rdf:resource="#SortCategory"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#StartSorting">
+        <rdf:type rdf:resource="#StartSorting"/>
+    </owl:NamedIndividual>
+    
+</rdf:RDF>

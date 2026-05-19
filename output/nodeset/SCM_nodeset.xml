@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" LastModified="2026-05-19T11:13:35.757326">
+  <NamespaceUris>
+    <Uri>http://example.org/UA/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://example.org/UA/" PublicationDate="2026-05-19T11:13:35Z" Version="1.0">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.04"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=2;i=5000" BrowseName="2:VisionAlign" DisplayName="VisionAlign" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5001" BrowseName="2:ScribingSpeed" DisplayName="ScribingSpeed" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5002" BrowseName="2:LaserPower" DisplayName="LaserPower" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5003" BrowseName="2:LaserSystem" DisplayName="LaserSystem" EventNotifier="SubscribeToEvents"/>
+  <UAObject NodeId="ns=2;i=5004" BrowseName="2:ScribingHead" DisplayName="ScribingHead" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5005" BrowseName="2:ScribingForce" DisplayName="ScribingForce" DataType="String" ParentNodeId="ns=2;i=5004"/>
+  <UAVariable NodeId="ns=2;i=5006" BrowseName="2:XPosition" DisplayName="XPosition" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5007" BrowseName="2:PulseFrequency" DisplayName="PulseFrequency" DataType="String" ParentNodeId="ns=2;i=5003"/>
+  <UAVariable NodeId="ns=2;i=5008" BrowseName="2:AlignmentAccuracy" DisplayName="AlignmentAccuracy" DataType="String" ParentNodeId="ns=2;i=5000"/>
+  <UAObject NodeId="ns=2;i=5009" BrowseName="2:ScribingMachine" DisplayName="ScribingMachine" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5010" BrowseName="2:TableAccuracy" DisplayName="TableAccuracy" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5011" BrowseName="2:SubstrateSize" DisplayName="SubstrateSize" DataType="String" ParentNodeId="ns=2;i=5009"/>
+  <UAVariable NodeId="ns=2;i=5012" BrowseName="2:ProcessingTime" DisplayName="ProcessingTime" DataType="String" ParentNodeId="ns=2;i=5009"/>
+  <UAMethod NodeId="ns=2;i=5013" BrowseName="2:StartProcess" DisplayName="StartProcess" ParentNodeId="ns=2;i=5009"/>
+  <UAObject NodeId="ns=2;i=5014" BrowseName="2:XYTable" DisplayName="XYTable" EventNotifier="SubscribeToEvents"/>
+  <UAMethod NodeId="ns=2;i=5015" BrowseName="2:LoadPattern" DisplayName="LoadPattern" ParentNodeId="ns=2;i=5009"/>
+  <UAVariable NodeId="ns=2;i=5016" BrowseName="2:ToolWear" DisplayName="ToolWear" DataType="String" ParentNodeId="ns=2;i=5004"/>
+  <UAMethod NodeId="ns=2;i=5017" BrowseName="2:StartScribing" DisplayName="StartScribing" ParentNodeId="ns=2;i=5004"/>
+  <UAVariable NodeId="ns=2;i=5018" BrowseName="2:YPosition" DisplayName="YPosition" DataType="String" ParentNodeId="ns=2;i=5014"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5004"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5014"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5003"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5000"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5004" TargetNodeId="ns=2;i=5005"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5004" TargetNodeId="ns=2;i=5001"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5004" TargetNodeId="ns=2;i=5016"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5004" TargetNodeId="ns=2;i=5017"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5014" TargetNodeId="ns=2;i=5006"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5014" TargetNodeId="ns=2;i=5018"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5014" TargetNodeId="ns=2;i=5010"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5003" TargetNodeId="ns=2;i=5002"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5003" TargetNodeId="ns=2;i=5007"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5000" TargetNodeId="ns=2;i=5008"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5011"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5012"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5015"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5009" TargetNodeId="ns=2;i=5013"/>
+</UANodeSet>

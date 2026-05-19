@@ -1,0 +1,326 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "componentName": "Page",
+      "package": "@alilc/lowcode-materials",
+      "version": "1.0.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Card",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "NumberPicker",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Input",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Switch",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Button",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Typography",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "page_SCM",
+      "fileName": "Scribing_Machine",
+      "props": {
+        "title": "Scribing Machine",
+        "ref": "page"
+      },
+      "css": "body { font-family: sans-serif; } .device-card { margin: 8px 0; }",
+      "state": {},
+      "dataSource": {
+        "list": [
+          {
+            "id": "deviceData",
+            "isInit": true,
+            "type": "fetch",
+            "options": {
+              "uri": "/api/opcua/SCM/data",
+              "method": "GET",
+              "params": {},
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {}
+            }
+          }
+        ]
+      },
+      "lifeCycles": {
+        "componentDidMount": {
+          "type": "JSFunction",
+          "value": "function componentDidMount() {\n  console.log('Scribing Machine 监控页面已加载');\n}"
+        }
+      },
+      "methods": {
+        "StartScribing": {
+          "type": "JSFunction",
+          "value": "function StartScribing(params) {\n  console.log('执行操作: StartScribing');\n}"
+        },
+        "LoadPattern": {
+          "type": "JSFunction",
+          "value": "function LoadPattern(params) {\n  console.log('执行操作: LoadPattern');\n}"
+        },
+        "StartProcess": {
+          "type": "JSFunction",
+          "value": "function StartProcess(params) {\n  console.log('执行操作: StartProcess');\n}"
+        }
+      },
+      "children": [
+        {
+          "componentName": "Card",
+          "id": "node_ScribingMachine",
+          "props": {
+            "title": "ScribingMachine",
+            "showHeadDivider": true
+          },
+          "hidden": false,
+          "condition": true,
+          "children": [
+            {
+              "componentName": "Card",
+              "id": "node_ScribingMachine_ScribingHead",
+              "props": {
+                "title": "ScribingHead",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_ScribingHead_prop_ScribingForce",
+                  "props": {
+                    "label": "ScribingForce",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_ScribingHead_prop_ScribingSpeed",
+                  "props": {
+                    "label": "ScribingSpeed",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_ScribingHead_prop_ToolWear",
+                  "props": {
+                    "label": "ToolWear",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_ScribingMachine_ScribingHead_method_StartScribing",
+                  "props": {
+                    "type": "primary",
+                    "children": "StartScribing",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.StartScribing"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_ScribingMachine_XYTable",
+              "props": {
+                "title": "XYTable",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_XYTable_prop_XPosition",
+                  "props": {
+                    "label": "XPosition",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_XYTable_prop_YPosition",
+                  "props": {
+                    "label": "YPosition",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_XYTable_prop_TableAccuracy",
+                  "props": {
+                    "label": "TableAccuracy",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_ScribingMachine_LaserSystem",
+              "props": {
+                "title": "LaserSystem",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_LaserSystem_prop_LaserPower",
+                  "props": {
+                    "label": "LaserPower",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_LaserSystem_prop_PulseFrequency",
+                  "props": {
+                    "label": "PulseFrequency",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_ScribingMachine_VisionAlign",
+              "props": {
+                "title": "VisionAlign",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_ScribingMachine_VisionAlign_prop_AlignmentAccuracy",
+                  "props": {
+                    "label": "AlignmentAccuracy",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Input",
+              "id": "node_ScribingMachine_prop_SubstrateSize",
+              "props": {
+                "label": "SubstrateSize",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Input",
+              "id": "node_ScribingMachine_prop_ProcessingTime",
+              "props": {
+                "label": "ProcessingTime",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_ScribingMachine_method_LoadPattern",
+              "props": {
+                "type": "primary",
+                "children": "LoadPattern",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.LoadPattern"
+                }
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_ScribingMachine_method_StartProcess",
+              "props": {
+                "type": "primary",
+                "children": "StartProcess",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.StartProcess"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "utils": [],
+  "constants": {
+    "DEVICE_TYPE": "SCM",
+    "SERVER_URL": "opc.tcp://192.168.1.100:4840",
+    "FRAME_ID": 1
+  },
+  "css": "body { font-size: 14px; margin: 0; padding: 16px; }\n.device-card { margin-bottom: 12px; }\n.var-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; }\n.var-label { font-weight: 500; min-width: 120px; }",
+  "config": {
+    "sdkVersion": "1.0.18",
+    "historyMode": "hash",
+    "targetRootID": "root",
+    "theme": {
+      "primary": "#1890ff"
+    }
+  },
+  "meta": {
+    "name": "Scribing Machine 监控页面",
+    "description": "Scribing Machine 低代码页面由 KG 语义骨架 + OPC UA 帧运行时数据融合生成",
+    "creator": "lowcode_generator",
+    "source": "merged",
+    "gmt_create": "2026-05-19T11:13:35.822927",
+    "source_frame_id": 1,
+    "server_url": "opc.tcp://192.168.1.100:4840"
+  },
+  "i18n": {},
+  "router": {
+    "baseUrl": "/",
+    "routes": [
+      {
+        "path": "scm",
+        "page": "page_SCM"
+      }
+    ]
+  },
+  "dataSource": {
+    "list": []
+  },
+  "pages": [
+    {
+      "id": "page_SCM",
+      "treeId": "page_SCM"
+    }
+  ]
+}

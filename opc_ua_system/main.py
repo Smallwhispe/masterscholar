@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from knowledge_graph import KnowledgeGraphBuilder
+from knowledge_graph import KnowledgeGraphBuilder, Neo4jConnector
 from knowledge_completion import CompletionTrainer, KnowledgeLinker
 from device_identification import (
     CharPreprocessor,
@@ -21,7 +21,7 @@ from model_generation import (
     LowcodeGenerator,
 )
 from validation import TrustVerifier
-from data import TrainingDataGenerator, SampleData
+from data_generation import TrainingDataGenerator, SampleData
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +80,7 @@ class Pipeline:
         self.address_builder = AddressSpaceBuilder()
         self.lowcode_gen = LowcodeGenerator()
         self.verifier = TrustVerifier()
+        self.neo4j: Optional[Neo4jConnector] = None
 
         self.char_preprocessor: Optional[CharPreprocessor] = None
         self.textcnn: Optional[CharTextCNN] = None
@@ -290,6 +291,22 @@ class Pipeline:
                 self.kg_builder.add_completed_triples([triple])
                 completed_triples.append(comp)
 
+        neo4j_synced = 0
+        if self.config.get("knowledge_graph", "db_type") == "neo4j":
+            self.neo4j = Neo4jConnector(
+                uri=self.config.get("knowledge_graph", "neo4j_uri", "bolt://localhost:7687"),
+                user=self.config.get("knowledge_graph", "neo4j_user", "neo4j"),
+                password=self.config.get("knowledge_graph", "neo4j_password", "password"),
+            )
+            if self.neo4j.connect():
+                neo4j_synced = self.neo4j.import_triples(
+                    [t.to_dict() for t in self.kg_builder.store._triples],
+                    device_type=device_type,
+                )
+                logger.info(f"  已同步 {neo4j_synced} 条三元组到 Neo4j")
+            else:
+                logger.warning("  Neo4j 连接失败，跳过图数据库同步")
+
         self.imkg_to_owl = IMKGToOWL()
         owl_content = self.imkg_to_owl.convert(
             self.kg_builder.store, device_type=device_type
@@ -341,6 +358,7 @@ class Pipeline:
             "kg_entity_count": self.kg_builder.store.entity_count,
             "kg_triple_count": self.kg_builder.store.triple_count,
             "completed_triples": len(completed_triples),
+            "neo4j_synced": neo4j_synced,
             "owl_path": str(owl_path),
             "nodeset_path": str(nodeset_path),
             "lowcode_schema_path": "" if lowcode_path == "" else str(lowcode_path),

@@ -1,0 +1,353 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "componentName": "Page",
+      "package": "@alilc/lowcode-materials",
+      "version": "1.0.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Card",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "NumberPicker",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Input",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Switch",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Button",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    },
+    {
+      "componentName": "Typography",
+      "package": "@alifd/next",
+      "version": "1.23.0",
+      "destructuring": true
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "page_SOM",
+      "fileName": "Sorting_Machine",
+      "props": {
+        "title": "Sorting Machine",
+        "ref": "page"
+      },
+      "css": "body { font-family: sans-serif; } .device-card { margin: 8px 0; }",
+      "state": {},
+      "dataSource": {
+        "list": [
+          {
+            "id": "deviceData",
+            "isInit": true,
+            "type": "fetch",
+            "options": {
+              "uri": "/api/opcua/SOM/data",
+              "method": "GET",
+              "params": {},
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {}
+            }
+          }
+        ]
+      },
+      "lifeCycles": {
+        "componentDidMount": {
+          "type": "JSFunction",
+          "value": "function componentDidMount() {\n  console.log('Sorting Machine 监控页面已加载');\n}"
+        }
+      },
+      "methods": {
+        "StartBelt": {
+          "type": "JSFunction",
+          "value": "function StartBelt(params) {\n  console.log('执行操作: StartBelt');\n}"
+        },
+        "StopBelt": {
+          "type": "JSFunction",
+          "value": "function StopBelt(params) {\n  console.log('执行操作: StopBelt');\n}"
+        },
+        "CaptureImage": {
+          "type": "JSFunction",
+          "value": "function CaptureImage(params) {\n  console.log('执行操作: CaptureImage');\n}"
+        },
+        "StartSorting": {
+          "type": "JSFunction",
+          "value": "function StartSorting(params) {\n  console.log('执行操作: StartSorting');\n}"
+        },
+        "PauseSorting": {
+          "type": "JSFunction",
+          "value": "function PauseSorting(params) {\n  console.log('执行操作: PauseSorting');\n}"
+        }
+      },
+      "children": [
+        {
+          "componentName": "Card",
+          "id": "node_SortingMachine",
+          "props": {
+            "title": "SortingMachine",
+            "showHeadDivider": true
+          },
+          "hidden": false,
+          "condition": true,
+          "children": [
+            {
+              "componentName": "Card",
+              "id": "node_SortingMachine_Feeder",
+              "props": {
+                "title": "Feeder",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_SortingMachine_Feeder_prop_FeedRate",
+                  "props": {
+                    "label": "FeedRate",
+                    "disabled": true,
+                    "value": 150.0,
+                    "_opcua_data_type": "Double",
+                    "_opcua_node_id": "ns=2;i=5008"
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_Feeder_prop_FeederStatus",
+                  "props": {
+                    "label": "FeederStatus",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_SortingMachine_Conveyor",
+              "props": {
+                "title": "Conveyor",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_Conveyor_prop_BeltSpeed",
+                  "props": {
+                    "label": "BeltSpeed",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_Conveyor_prop_BeltDirection",
+                  "props": {
+                    "label": "BeltDirection",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_SortingMachine_Conveyor_method_StartBelt",
+                  "props": {
+                    "type": "primary",
+                    "children": "StartBelt",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.StartBelt"
+                    }
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_SortingMachine_Conveyor_method_StopBelt",
+                  "props": {
+                    "type": "primary",
+                    "children": "StopBelt",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.StopBelt"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_SortingMachine_VisionSystem",
+              "props": {
+                "title": "VisionSystem",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_VisionSystem_prop_RecognitionRate",
+                  "props": {
+                    "label": "RecognitionRate",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_VisionSystem_prop_CameraResolution",
+                  "props": {
+                    "label": "CameraResolution",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_SortingMachine_VisionSystem_method_CaptureImage",
+                  "props": {
+                    "type": "primary",
+                    "children": "CaptureImage",
+                    "onClick": {
+                      "type": "JSExpression",
+                      "value": "this.methods.CaptureImage"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Card",
+              "id": "node_SortingMachine_SortingActuator",
+              "props": {
+                "title": "SortingActuator",
+                "showHeadDivider": true
+              },
+              "hidden": false,
+              "condition": true,
+              "children": [
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_SortingActuator_prop_SortCount",
+                  "props": {
+                    "label": "SortCount",
+                    "disabled": true
+                  }
+                },
+                {
+                  "componentName": "Input",
+                  "id": "node_SortingMachine_SortingActuator_prop_SortCategory",
+                  "props": {
+                    "label": "SortCategory",
+                    "disabled": true
+                  }
+                }
+              ]
+            },
+            {
+              "componentName": "Input",
+              "id": "node_SortingMachine_prop_Throughput",
+              "props": {
+                "label": "Throughput",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Input",
+              "id": "node_SortingMachine_prop_ErrorCount",
+              "props": {
+                "label": "ErrorCount",
+                "disabled": true
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_SortingMachine_method_StartSorting",
+              "props": {
+                "type": "primary",
+                "children": "StartSorting",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.StartSorting"
+                }
+              }
+            },
+            {
+              "componentName": "Button",
+              "id": "node_SortingMachine_method_PauseSorting",
+              "props": {
+                "type": "primary",
+                "children": "PauseSorting",
+                "onClick": {
+                  "type": "JSExpression",
+                  "value": "this.methods.PauseSorting"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "utils": [],
+  "constants": {
+    "DEVICE_TYPE": "SOM",
+    "SERVER_URL": "opc.tcp://192.168.1.100:4840",
+    "FRAME_ID": 1
+  },
+  "css": "body { font-size: 14px; margin: 0; padding: 16px; }\n.device-card { margin-bottom: 12px; }\n.var-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; }\n.var-label { font-weight: 500; min-width: 120px; }",
+  "config": {
+    "sdkVersion": "1.0.18",
+    "historyMode": "hash",
+    "targetRootID": "root",
+    "theme": {
+      "primary": "#1890ff"
+    }
+  },
+  "meta": {
+    "name": "Sorting Machine 监控页面",
+    "description": "Sorting Machine 低代码页面由 KG 语义骨架 + OPC UA 帧运行时数据融合生成",
+    "creator": "lowcode_generator",
+    "source": "merged",
+    "gmt_create": "2026-05-19T12:07:43.699988",
+    "source_frame_id": 1,
+    "server_url": "opc.tcp://192.168.1.100:4840"
+  },
+  "i18n": {},
+  "router": {
+    "baseUrl": "/",
+    "routes": [
+      {
+        "path": "som",
+        "page": "page_SOM"
+      }
+    ]
+  },
+  "dataSource": {
+    "list": []
+  },
+  "pages": [
+    {
+      "id": "page_SOM",
+      "treeId": "page_SOM"
+    }
+  ]
+}
