@@ -340,7 +340,7 @@ String/ByteString → Input
 | 指标 | 说明 | 当前状态 |
 |------|------|:--:|
 | 单行调用 | 一行代码完成全量验证 | ✅ `verifier.verify_all()` |
-| Pipeline 自动集成 | 在 phase_3 中自动触发 | ✅ |
+| Pipeline 自动集成 | 在 query_by_device_type 中自动触发 | ✅ |
 | CLI 参数控制 | `--no-lowcode` 跳过 | ✅ |
 | 独立使用 | 不依赖 Pipeline，单模块可调 | ✅ `TrustVerifier` |
 

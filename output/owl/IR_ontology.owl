@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:ua="http://example.org/ua/ontology#"
+         xml:base="http://example.org/ua/ontology">
+    
+    <owl:Ontology rdf:about="">
+        <rdfs:label>OPC UA Device Ontology - IR</rdfs:label>
+        <rdfs:comment>Automatically generated from IMKG for IR device type</rdfs:comment>
+    </owl:Ontology>
+    
+        <owl:Class rdf:about="#IndustrialRobot">
+        <rdfs:label>IndustrialRobot</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#RobotArm">
+        <rdfs:label>RobotArm</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Controller">
+        <rdfs:label>Controller</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#EndEffector">
+        <rdfs:label>EndEffector</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#DriveSystem">
+        <rdfs:label>DriveSystem</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#AxisCount">
+        <rdfs:label>AxisCount</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Reach">
+        <rdfs:label>Reach</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Payload">
+        <rdfs:label>Payload</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#Repeatability">
+        <rdfs:label>Repeatability</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#MoveJ">
+        <rdfs:label>MoveJ</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#MoveL">
+        <rdfs:label>MoveL</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#ControlMode">
+        <rdfs:label>ControlMode</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#ProgramNumber">
+        <rdfs:label>ProgramNumber</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#SpeedOverride">
+        <rdfs:label>SpeedOverride</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#GripperType">
+        <rdfs:label>GripperType</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#GrippingForce">
+        <rdfs:label>GrippingForce</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#MotorSpeed">
+        <rdfs:label>MotorSpeed</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#MotorCurrent">
+        <rdfs:label>MotorCurrent</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#JointTemperature">
+        <rdfs:label>JointTemperature</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#RobotStatus">
+        <rdfs:label>RobotStatus</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#EmergencyStop">
+        <rdfs:label>EmergencyStop</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#StartProgram">
+        <rdfs:label>StartProgram</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#StopProgram">
+        <rdfs:label>StopProgram</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#ResetAlarm">
+        <rdfs:label>ResetAlarm</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#IndustrialEquipment">
+        <rdfs:label>IndustrialEquipment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#PLC">
+        <rdfs:label>PLC</rdfs:label>
+    </owl:Class>
+        <owl:ObjectProperty rdf:about="#hasComponent">
+        <rdfs:label>hasComponent</rdfs:label>
+        <rdfs:domain rdf:resource="#IndustrialRobot"/>
+        <rdfs:range rdf:resource="#EndEffector"/>
+        <rdfs:range rdf:resource="#Controller"/>
+        <rdfs:range rdf:resource="#DriveSystem"/>
+        <rdfs:range rdf:resource="#RobotArm"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#hasOperation">
+        <rdfs:label>hasOperation</rdfs:label>
+        <rdfs:domain rdf:resource="#IndustrialRobot"/>
+        <rdfs:domain rdf:resource="#RobotArm"/>
+        <rdfs:range rdf:resource="#StartProgram"/>
+        <rdfs:range rdf:resource="#ResetAlarm"/>
+        <rdfs:range rdf:resource="#MoveL"/>
+        <rdfs:range rdf:resource="#StopProgram"/>
+        <rdfs:range rdf:resource="#MoveJ"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#controlledBy">
+        <rdfs:label>controlledBy</rdfs:label>
+        <rdfs:domain rdf:resource="#Controller"/>
+        <rdfs:range rdf:resource="#PLC"/>
+    </owl:ObjectProperty>
+        <owl:DatatypeProperty rdf:about="#hasProperty">
+        <rdfs:label>hasProperty</rdfs:label>
+        <rdfs:domain rdf:resource="#DriveSystem"/>
+        <rdfs:domain rdf:resource="#IndustrialRobot"/>
+        <rdfs:domain rdf:resource="#Controller"/>
+        <rdfs:domain rdf:resource="#EndEffector"/>
+        <rdfs:domain rdf:resource="#RobotArm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+        <rdfs:subClassOf rdf:resource="#RobotArm" rdf:resource="#IndustrialEquipment"/>
+        <owl:NamedIndividual rdf:about="#ControlMode">
+        <rdf:type rdf:resource="#ControlMode"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#StartProgram">
+        <rdf:type rdf:resource="#StartProgram"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#AxisCount">
+        <rdf:type rdf:resource="#AxisCount"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#SpeedOverride">
+        <rdf:type rdf:resource="#SpeedOverride"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#IndustrialEquipment">
+        <rdf:type rdf:resource="#IndustrialEquipment"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#MotorCurrent">
+        <rdf:type rdf:resource="#MotorCurrent"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#IndustrialRobot">
+        <rdf:type rdf:resource="#IndustrialRobot"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#MoveL">
+        <rdf:type rdf:resource="#MoveL"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#PLC">
+        <rdf:type rdf:resource="#PLC"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#MotorSpeed">
+        <rdf:type rdf:resource="#MotorSpeed"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#EmergencyStop">
+        <rdf:type rdf:resource="#EmergencyStop"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#MoveJ">
+        <rdf:type rdf:resource="#MoveJ"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Repeatability">
+        <rdf:type rdf:resource="#Repeatability"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#DriveSystem">
+        <rdf:type rdf:resource="#DriveSystem"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#ResetAlarm">
+        <rdf:type rdf:resource="#ResetAlarm"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#ProgramNumber">
+        <rdf:type rdf:resource="#ProgramNumber"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Payload">
+        <rdf:type rdf:resource="#Payload"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Reach">
+        <rdf:type rdf:resource="#Reach"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#JointTemperature">
+        <rdf:type rdf:resource="#JointTemperature"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#GrippingForce">
+        <rdf:type rdf:resource="#GrippingForce"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#RobotArm">
+        <rdf:type rdf:resource="#RobotArm"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#EndEffector">
+        <rdf:type rdf:resource="#EndEffector"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#RobotStatus">
+        <rdf:type rdf:resource="#RobotStatus"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Controller">
+        <rdf:type rdf:resource="#Controller"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#StopProgram">
+        <rdf:type rdf:resource="#StopProgram"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#GripperType">
+        <rdf:type rdf:resource="#GripperType"/>
+    </owl:NamedIndividual>
+    
+</rdf:RDF>

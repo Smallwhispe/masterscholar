@@ -66,9 +66,7 @@ class Pipeline:
     7. 低代码生成:   KG语义 + 帧实时值 → LowCodeEngine ProjectSchema JSON
 
     图示流程:
-    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────────┐
-    │ 设备数据帧 │ → │  JSON转换  │ → │ 设备类型识别│ → │未知实体补全│ → │信息模型子图│ → │ OPC UA XML│ → │低代码Schema │
-    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────┘    └──────────────┘
+        设备数据帧 → JSON转换 → 设备类型识别 → 未知实体补全 → 信息模型子图 → OPC UA XML → 低代码Schema
     """
 
     def __init__(self, config_path: str = None):
@@ -91,30 +89,59 @@ class Pipeline:
         self._device_type: str = ""
         self._results: Dict[str, Any] = {}
 
-    def phase_1_init_training_data(self) -> Dict:
+    def init_training_data(self) -> Dict:
         """第一阶段: 初始化训练数据
 
-        在 data/training/ 下生成所有需要的训练数据
-        - device_classification/ : TextCNN训练数据 + 字符词表 + 标签映射
-        - cbow/                  : CBOW字符嵌入训练数据
-        - complex/               : ComplEx KG嵌入训练数据
-        - ner/                   : NER实体识别训练数据
+        按需生成: 检查每个子目录的 JSON 文件, 只生成缺失的部分。
+        如果你已放入真实标注数据, 该方法不会覆盖已有文件。
         """
         logger.info("=" * 50)
         logger.info("Phase 1: 初始化训练数据")
         logger.info("=" * 50)
 
         self.training_gen = TrainingDataGenerator()
-        data_info = self.training_gen.generate_all()
+        generated = []
+        skipped = []
 
-        self._results["phase_1"] = {
-            "status": "completed",
-            "data_info": data_info,
-        }
-        logger.info(f"Phase 1 完成: {data_info}")
-        return data_info
+        # 1. 设备分类训练数据
+        cls_check = Path("data/training/device_classification/char_vocab.json")
+        if cls_check.exists():
+            skipped.append("device_classification")
+        else:
+            self.training_gen.generate_classification_data()
+            generated.append("device_classification")
 
-    def phase_2_build_models(self, device: str = "cpu") -> Dict:
+        # 2. CBOW 训练数据
+        cbow_check = Path("data/training/cbow/vocab.json")
+        if cbow_check.exists():
+            skipped.append("cbow")
+        else:
+            self.training_gen.generate_cbow_data()
+            generated.append("cbow")
+
+        # 3. ComplEx 训练数据
+        complex_check = Path("data/training/complex/triples.json")
+        if complex_check.exists():
+            skipped.append("complex")
+        else:
+            imkg_triples = self.training_gen.get_all_imkg_triples()
+            self.training_gen.generate_complex_data(imkg_triples)
+            generated.append("complex")
+
+        # 4. NER 训练数据
+        ner_check = Path("data/training/ner/ner_data.json")
+        if ner_check.exists():
+            skipped.append("ner")
+        else:
+            self.training_gen.generate_ner_data()
+            generated.append("ner")
+
+        info = f"已生成: {generated or '(无)'}, 已跳过: {skipped or '(无)'}"
+        self._results["phase_1"] = {"status": "completed", "data_info": info}
+        logger.info(f"Phase 1 完成: {info}")
+        return info
+
+    def build_models(self, device: str = "cpu") -> Dict:
         """第二阶段: 构建并训练模型
 
         - 构建字符级TextCNN分类器
@@ -129,21 +156,17 @@ class Pipeline:
 
         import torch
 
-        if self.training_gen is None:
-            self.phase_1_init_training_data()
-
-        gen = self.training_gen
         output_dir = Path("data/training/device_classification")
         vocab_path = output_dir / "char_vocab.json"
 
-        if vocab_path.exists():
-            self.char_preprocessor = CharPreprocessor.load(str(vocab_path))
-        else:
-            self.char_preprocessor = CharPreprocessor()
-            all_texts = []
-            for fields in gen.DEVICE_TYPE_FIELDS.values():
-                all_texts.extend(fields)
-            self.char_preprocessor.build_vocab(all_texts)
+        if not vocab_path.exists():
+            raise FileNotFoundError(
+                f"{vocab_path} 不存在。请先准备训练数据:\n"
+                "  方案1: 运行 init_training_data() 生成模拟训练数据\n"
+                "  方案2: 将你的真实标注数据放入 data/training/ 目录"
+            )
+
+        self.char_preprocessor = CharPreprocessor.load(str(vocab_path))
 
         self.textcnn = CharTextCNN(
             vocab_size=self.char_preprocessor.vocab_size,
@@ -164,7 +187,6 @@ class Pipeline:
             window_size=3,
         )
 
-        imkg_triples = gen.get_all_imkg_triples()
         self.kg_builder.build_from_device_type("CNC")
 
         entities = self.kg_builder._entity_to_idx
@@ -206,6 +228,10 @@ class Pipeline:
         model_dir.mkdir(parents=True, exist_ok=True)
         trainer.save_models(str(model_dir))
 
+        textcnn_path = Path("data/training/device_classification/textcnn.pt")
+        textcnn_path.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(self.textcnn.state_dict(), str(textcnn_path))
+
         self._results["phase_2"] = {
             "status": "completed",
             "textcnn_params": sum(
@@ -224,9 +250,51 @@ class Pipeline:
         logger.info("Phase 2 完成: 所有模型已构建")
         return self._results["phase_2"]
 
-    def phase_3_query_by_device_type(
-        self, frame: Dict, generate_lowcode: bool = True
-    ) -> Dict:
+    def _ensure_models_ready(self, device: str = "cpu") -> None:
+        """确保模型已就绪: 有 .pt 则加载, 无则自动调用 Phase 2 生成"""
+        if self.identifier is not None:
+            return
+
+        import torch
+        from knowledge_completion import CBOW, ComplEx, SpaceTransformer
+
+        textcnn_pt = Path("data/training/device_classification/textcnn.pt")
+        complex_dir = Path("data/training/complex/")
+        char_vocab_path = Path("data/training/device_classification/char_vocab.json")
+
+        if textcnn_pt.exists() and (complex_dir / "complex.pt").exists():
+            self.char_preprocessor = CharPreprocessor.load(str(char_vocab_path))
+            self.textcnn = CharTextCNN(
+                vocab_size=self.char_preprocessor.vocab_size, num_classes=6, dropout_rate=0.5,
+            )
+            self.textcnn.load_state_dict(torch.load(str(textcnn_pt), map_location=device))
+            self.identifier = DeviceIdentifier(self.textcnn, self.char_preprocessor, device=device)
+
+            self.cbow = CBOW(vocab_size=self.char_preprocessor.vocab_size, embedding_dim=64, window_size=3)
+            self.kg_builder.build_from_device_type("CNC")
+            self.complex_model = ComplEx(
+                num_entities=len(self.kg_builder._entity_to_idx),
+                num_relations=len(self.kg_builder._relation_to_idx),
+                embedding_dim=256,
+            )
+            self.transformer = SpaceTransformer(cbow_dim=64, kg_dim=512, hidden_dim=128, transform_type="mlp")
+            self.cbow.load_state_dict(torch.load(str(complex_dir / "cbow.pt"), map_location=device))
+            self.complex_model.load_state_dict(torch.load(str(complex_dir / "complex.pt"), map_location=device))
+            self.transformer.load_state_dict(torch.load(str(complex_dir / "transformer.pt"), map_location=device))
+            self.linker = KnowledgeLinker(
+                cbow=self.cbow, complex_model=self.complex_model, space_transformer=self.transformer,
+                char_to_idx=self.char_preprocessor.char_to_idx,
+                entity_to_idx=self.kg_builder._entity_to_idx, relation_to_idx=self.kg_builder._relation_to_idx,
+                idx_to_entity=self.kg_builder._idx_to_entity, idx_to_relation=self.kg_builder._idx_to_relation,
+                device=device,
+            )
+            logger.info("Phase 3: 已从 data/training/ 加载预训练 .pt 权重")
+        else:
+            logger.info("Phase 3: .pt 文件缺失, 自动调用 Phase 2 生成模型")
+            self.init_training_data()
+            self.build_models(device=device)
+
+    def query_by_device_type(self, frame: Dict, generate_lowcode: bool = True) -> Dict:
         """第三阶段: 设备数据帧 → 设备类型识别 → IMKG构建 → 知识补全 → 模型生成
 
         核心流水线:
@@ -244,9 +312,7 @@ class Pipeline:
 
         result = {"device_type": "Unknown", "status": "not_started"}
 
-        if self.identifier is None:
-            logger.error("模型未初始化，请先运行 Phase 2")
-            return result
+        self._ensure_models_ready(device="cpu")
 
         id_result = self.identifier.identify_from_frame(frame)
         device_type = id_result.get("device_type", "Unknown")
@@ -377,9 +443,7 @@ class Pipeline:
                      f"补全三元组={len(completed_triples)}")
         return result
 
-    def run_full_pipeline(
-        self, frame: Dict = None, device: str = "cpu", generate_lowcode: bool = True
-    ) -> Dict[str, Any]:
+    def run_full_pipeline(self, frame: Dict = None, device: str = "cpu", generate_lowcode: bool = True) -> Dict[str, Any]:
         """运行完整流水线
 
         Args:
@@ -398,9 +462,7 @@ class Pipeline:
             sample_gen.create_all()
             frame = sample_gen.create_sample_frame()
 
-        self.phase_1_init_training_data()
-        self.phase_2_build_models(device=device)
-        result = self.phase_3_query_by_device_type(
+        result = self.query_by_device_type(
             frame, generate_lowcode=generate_lowcode
         )
 
@@ -490,7 +552,7 @@ def main():
     pipeline = Pipeline(config_path=args.config)
 
     if args.generate_data_only:
-        pipeline.phase_1_init_training_data()
+        pipeline.init_training_data()
         return
 
     if args.frame:

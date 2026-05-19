@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" LastModified="2026-05-19T14:04:06.102065">
+  <NamespaceUris>
+    <Uri>http://example.org/UA/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://example.org/UA/" PublicationDate="2026-05-19T14:04:06Z" Version="1.0">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.04"/>
+    </Model>
+  </Models>
+  <UAVariable NodeId="ns=2;i=5000" BrowseName="2:ControlMode" DisplayName="ControlMode" DataType="String" ParentNodeId=""/>
+  <UAMethod NodeId="ns=2;i=5001" BrowseName="2:StartProgram" DisplayName="StartProgram" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5002" BrowseName="2:AxisCount" DisplayName="AxisCount" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5003" BrowseName="2:SpeedOverride" DisplayName="SpeedOverride" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5004" BrowseName="2:IndustrialEquipment" DisplayName="IndustrialEquipment" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5005" BrowseName="2:MotorCurrent" DisplayName="MotorCurrent" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5006" BrowseName="2:IndustrialRobot" DisplayName="IndustrialRobot" EventNotifier="SubscribeToEvents"/>
+  <UAMethod NodeId="ns=2;i=5007" BrowseName="2:MoveL" DisplayName="MoveL" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5008" BrowseName="2:PLC" DisplayName="PLC" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5009" BrowseName="2:MotorSpeed" DisplayName="MotorSpeed" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5010" BrowseName="2:EmergencyStop" DisplayName="EmergencyStop" DataType="String" ParentNodeId="ns=2;i=5006"/>
+  <UAMethod NodeId="ns=2;i=5011" BrowseName="2:MoveJ" DisplayName="MoveJ" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5012" BrowseName="2:Repeatability" DisplayName="Repeatability" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5013" BrowseName="2:DriveSystem" DisplayName="DriveSystem" EventNotifier="SubscribeToEvents"/>
+  <UAMethod NodeId="ns=2;i=5014" BrowseName="2:ResetAlarm" DisplayName="ResetAlarm" ParentNodeId="ns=2;i=5006"/>
+  <UAVariable NodeId="ns=2;i=5015" BrowseName="2:ProgramNumber" DisplayName="ProgramNumber" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5016" BrowseName="2:Payload" DisplayName="Payload" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5017" BrowseName="2:Reach" DisplayName="Reach" DataType="String" ParentNodeId=""/>
+  <UAVariable NodeId="ns=2;i=5018" BrowseName="2:JointTemperature" DisplayName="JointTemperature" DataType="String" ParentNodeId="ns=2;i=5013"/>
+  <UAVariable NodeId="ns=2;i=5019" BrowseName="2:GrippingForce" DisplayName="GrippingForce" DataType="String" ParentNodeId=""/>
+  <UAObject NodeId="ns=2;i=5020" BrowseName="2:RobotArm" DisplayName="RobotArm" EventNotifier="SubscribeToEvents"/>
+  <UAObject NodeId="ns=2;i=5021" BrowseName="2:EndEffector" DisplayName="EndEffector" EventNotifier="SubscribeToEvents"/>
+  <UAVariable NodeId="ns=2;i=5022" BrowseName="2:RobotStatus" DisplayName="RobotStatus" DataType="String" ParentNodeId="ns=2;i=5006"/>
+  <UAObject NodeId="ns=2;i=5023" BrowseName="2:Controller" DisplayName="Controller" EventNotifier="SubscribeToEvents"/>
+  <UAMethod NodeId="ns=2;i=5024" BrowseName="2:StopProgram" DisplayName="StopProgram" ParentNodeId="ns=2;i=5006"/>
+  <UAVariable NodeId="ns=2;i=5025" BrowseName="2:GripperType" DisplayName="GripperType" DataType="String" ParentNodeId="ns=2;i=5021"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5020"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5023"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5021"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5013"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5002"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5017"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5016"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5012"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5011"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5020" TargetNodeId="ns=2;i=5007"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5000"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5015"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5003"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5021" TargetNodeId="ns=2;i=5025"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5021" TargetNodeId="ns=2;i=5019"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5013" TargetNodeId="ns=2;i=5009"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5013" TargetNodeId="ns=2;i=5005"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5013" TargetNodeId="ns=2;i=5018"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5022"/>
+  <UAReference ReferenceType="HasProperty" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5010"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5001"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5024"/>
+  <UAReference ReferenceType="HasComponent" SourceNodeId="ns=2;i=5006" TargetNodeId="ns=2;i=5014"/>
+  <UAReference ReferenceType="HasSubtype" SourceNodeId="ns=2;i=5004" TargetNodeId="ns=2;i=5020"/>
+  <UAReference ReferenceType="Organizes" SourceNodeId="ns=2;i=5023" TargetNodeId="ns=2;i=5008"/>
+</UANodeSet>
