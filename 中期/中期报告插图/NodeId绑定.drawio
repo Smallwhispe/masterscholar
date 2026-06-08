@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0" version="29.3.6">
+  <diagram name="第 1 页" id="t8LqGFqT7M-NOoAZUPt3">
+    <mxGraphModel dx="1201" dy="623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" style="locked=0;" />
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-8" edge="1" parent="1" source="K4cIv0kgClbjbvXe7k0N-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="K4cIv0kgClbjbvXe7k0N-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="表达式转换引擎&lt;div&gt;NodeId➡JSExpression&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="150" x="225" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-13" edge="1" parent="1" source="K4cIv0kgClbjbvXe7k0N-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="K4cIv0kgClbjbvXe7k0N-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="状态代理模块&lt;div&gt;维护全局DeviceState&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="150" x="225" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-7" edge="1" parent="1" source="K4cIv0kgClbjbvXe7k0N-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="K4cIv0kgClbjbvXe7k0N-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="OPC UA地址空间" vertex="1">
+          <mxGeometry height="40" width="120" x="440" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-4" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="{nodeId:&quot;ns=1;s=Speed&quot;,&lt;div&gt;value:250}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="180" x="225" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-9" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="No-Code&amp;nbsp; Component" vertex="1">
+          <mxGeometry height="100" width="190" x="390" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="K4cIv0kgClbjbvXe7k0N-10" parent="K4cIv0kgClbjbvXe7k0N-9" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="BindingValue = eval(&quot;state.opcMap[targetId]&quot;)" vertex="1">
+          <mxGeometry height="40" width="160" x="15" y="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
